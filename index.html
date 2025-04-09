@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ZY8 街机世界 - 多端合一的街机模拟器平台，畅玩经典街机游戏！" />
+  <title>ZY8 街机世界 - 多端畅玩街机游戏模拟器</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" />
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>ZY8 街机世界</h1>
+      <nav>
+        <a href="index.html" class="active">首页</a>
+        <a href="features.html">功能介绍</a>
+        <a href="contact.html">联系我们</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="hero">
+    <h2>电脑电视手机机顶盒 多端合一</h2>
+    <p>海量街机游戏，终身免费畅玩！畅享童年回忆，立即下载街机模拟器。</p>
+    <a href="#" class="btn" id="download-btn">扫码下载模拟器</a>
+
+    <section class="gallery" id="gallery">
+      <!-- 游戏封面将在此动态加载 -->
+    </section>
+  </main>
+
+  <div id="qr-popup" class="popup" style="display:none;">
+    <div class="popup-content">
+      <span id="close-popup" class="close-btn">&times;</span>
+      <img src="https://via.placeholder.com/200x200?text=QR+Code" alt="二维码" />
+      <p>扫码下载游戏模拟器</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 ZY8.TOP 版权所有</p>
+  </footer>
+
+  <script>
+    const gallery = document.getElementById('gallery');
+    const images = ['合金弹头', '三国战纪', '拳皇97', '街头霸王', '魂斗罗', '恐龙快打'];
+    images.forEach(title => {
+      const img = document.createElement('img');
+      img.src = `https://placehold.co/300x200?text=${encodeURIComponent(title)}`;
+      img.alt = title;
+      img.loading = 'lazy';
+      gallery.appendChild(img);
+    });
+
+    document.getElementById('download-btn').onclick = () => {
+      document.getElementById('qr-popup').style.display = 'block';
+    };
+    document.getElementById('close-popup').onclick = () => {
+      document.getElementById('qr-popup').style.display = 'none';
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>功能介绍 - ZY8 街机世界</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>ZY8 街机世界</h1>
+      <nav>
+        <a href="index.html">首页</a>
+        <a href="features.html" class="active">功能介绍</a>
+        <a href="contact.html">联系我们</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="content">
+    <h2>主要功能亮点</h2>
+    <ul id="feature-list"></ul>
+  </main>
+
+  <footer>
+    <p>© 2025 ZY8.TOP 版权所有</p>
+  </footer>
+
+  <script>
+    const features = [
+      '✅ 跨平台兼容：手机、电视、电脑、盒子',
+      '✅ 支持蓝牙手柄，最多四人联机',
+      '✅ 自动存档和读取，断点继续无忧',
+      '✅ 丰富中文游戏库持续更新'
+    ];
+    const list = document.getElementById('feature-list');
+    features.forEach(text => {
+      const li = document.createElement('li');
+      li.textContent = text;
+      list.appendChild(li);
+    });
+  </script>
+</body>
+</html>
