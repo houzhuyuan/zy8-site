@@ -3,61 +3,130 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="ZY8 街机世界 - 多端合一的街机模拟器平台，畅玩经典街机游戏！" />
-  <title>ZY8 街机世界 - 多端畅玩街机游戏模拟器</title>
+  <meta name="description" content="ZY8 街机模拟器 - 免费畅玩经典街机游戏，兼容手机电视投影仪" />
+  <title>ZY8 街机模拟器 - 免费畅玩街机游戏</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="favicon.ico" />
+  <!-- 引入 Font Awesome 图标库 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+  <!-- 顶部公告条 -->
+  <div class="announcement">🔥 ZY8新版上线！支持多端畅玩 + 海量街机游戏 🔥</div>
+  
+  <!-- Header 包含站点名称、导航和夜间/音乐切换按钮 -->
   <header>
     <div class="container">
-      <h1>ZY8 街机世界</h1>
+      <h1><i class="fas fa-gamepad"></i> ZY8 街机世界</h1>
       <nav>
         <a href="index.html" class="active">首页</a>
-        <a href="features.html">功能介绍</a>
-        <a href="contact.html">联系我们</a>
+        <a href="features.html">功能</a>
+        <a href="contact.html">联系</a>
+        <a href="leaderboard.html">排行榜</a>
       </nav>
+      <div class="toggle-buttons">
+        <button id="toggle-night-mode" class="toggle-btn"><i class="fas fa-moon"></i></button>
+        <button id="toggle-music" class="toggle-btn"><i class="fas fa-music"></i></button>
+      </div>
     </div>
   </header>
 
-  <main class="hero">
-    <h2>电脑电视手机机顶盒 多端合一</h2>
-    <p>海量街机游戏，终身免费畅玩！畅享童年回忆，立即下载街机模拟器。</p>
-    <a href="#" class="btn" id="download-btn">扫码下载模拟器</a>
+  <!-- 背景视频与遮罩层 -->
+  <div class="video-bg">
+    <video autoplay muted loop id="bg-video">
+      <source src="https://cdn.coverr.co/videos/coverr-arcade-games-3795/1080p.mp4" type="video/mp4" />
+    </video>
+    <div class="overlay"></div>
+  </div>
 
-    <section class="gallery" id="gallery">
-      <!-- 游戏封面将在此动态加载 -->
-    </section>
+  <!-- 主体内容 -->
+  <main class="hero">
+    <h2>街机盛宴，一键畅玩</h2>
+    <p>永久免费，兼容手机、电视、投影仪，支持双打联机</p>
+    <a href="#" class="btn-glow" id="download-btn">扫码下载模拟器</a>
+
+    <div class="stats">
+      <div><i class="fas fa-gamepad"></i><h3 id="games">0</h3><p>游戏数量</p></div>
+      <div><i class="fas fa-users"></i><h3 id="users">0</h3><p>玩家数量</p></div>
+      <div><i class="fas fa-clock"></i><h3 id="online">0</h3><p>活跃时长</p></div>
+    </div>
   </main>
 
-  <div id="qr-popup" class="popup" style="display:none;">
+  <!-- 二维码弹窗 -->
+  <div id="qr-popup" class="popup">
     <div class="popup-content">
       <span id="close-popup" class="close-btn">&times;</span>
-      <img src="https://via.placeholder.com/200x200?text=QR+Code" alt="二维码" />
-      <p>扫码下载游戏模拟器</p>
+      <img src="https://via.placeholder.com/220x220?text=扫码下载" alt="二维码" />
+      <p>扫码下载模拟器，支持安卓/TV/投影</p>
     </div>
   </div>
 
+  <!-- 背景音乐播放器（隐藏） -->
+  <audio id="bg-music" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-energy.mp3" type="audio/mp3" />
+    Your browser does not support the audio element.
+  </audio>
+
   <footer>
-    <p>© 2025 ZY8.TOP 版权所有</p>
+    <p>© 2025 ZY8.TOP | ZY8 街机模拟器</p>
   </footer>
 
+  <!-- JS 脚本 -->
   <script>
-    const gallery = document.getElementById('gallery');
-    const images = ['合金弹头', '三国战纪', '拳皇97', '街头霸王', '魂斗罗', '恐龙快打'];
-    images.forEach(title => {
-      const img = document.createElement('img');
-      img.src = `https://placehold.co/300x200?text=${encodeURIComponent(title)}`;
-      img.alt = title;
-      img.loading = 'lazy';
-      gallery.appendChild(img);
-    });
+    // 二维码弹窗逻辑
+    const downloadBtn = document.getElementById('download-btn');
+    const qrPopup = document.getElementById('qr-popup');
+    const closePopup = document.getElementById('close-popup');
+    downloadBtn.onclick = () => { qrPopup.style.display = 'flex'; }
+    closePopup.onclick = () => { qrPopup.style.display = 'none'; }
 
-    document.getElementById('download-btn').onclick = () => {
-      document.getElementById('qr-popup').style.display = 'block';
+    // 数字动画
+    function animateValue(id, start, end, duration) {
+      const obj = document.getElementById(id);
+      let startTime = null;
+      function update(currentTime) {
+        if (!startTime) startTime = currentTime;
+        const progress = currentTime - startTime;
+        const value = Math.floor(start + (end - start) * (progress / duration));
+        obj.innerText = value.toLocaleString();
+        if (progress < duration) requestAnimationFrame(update);
+        else obj.innerText = end.toLocaleString();
+      }
+      requestAnimationFrame(update);
+    }
+    animateValue("games", 0, 1200, 2000);
+    animateValue("users", 0, 98654, 2500);
+    animateValue("online", 0, 84513, 2000);
+
+    // 夜间模式切换
+    const toggleNightBtn = document.getElementById('toggle-night-mode');
+    toggleNightBtn.onclick = function() {
+      document.body.classList.toggle('night-mode');
+      const icon = this.querySelector('i');
+      if(document.body.classList.contains('night-mode')) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+      }
     };
-    document.getElementById('close-popup').onclick = () => {
-      document.getElementById('qr-popup').style.display = 'none';
+
+    // 背景音乐播放切换
+    const toggleMusicBtn = document.getElementById('toggle-music');
+    const bgMusic = document.getElementById('bg-music');
+    let musicPlaying = false;
+    toggleMusicBtn.onclick = function() {
+      if(musicPlaying) {
+        bgMusic.pause();
+        this.querySelector('i').classList.remove('fa-stop');
+        this.querySelector('i').classList.add('fa-music');
+      } else {
+        bgMusic.play();
+        this.querySelector('i').classList.remove('fa-music');
+        this.querySelector('i').classList.add('fa-stop');
+      }
+      musicPlaying = !musicPlaying;
     };
   </script>
 </body>

@@ -1,16 +1,27 @@
+/* 基本样式 */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen;
-  background-color: #111;
+  font-family: 'Segoe UI', sans-serif;
+  background: #0a0a0a;
   color: #fff;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s ease;
 }
 
+.announcement {
+  background: linear-gradient(to right, #ff512f, #f09819);
+  color: #fff;
+  text-align: center;
+  padding: 0.6rem;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* 头部区域 */
 header {
-  background: #000;
+  background: rgba(0, 0, 0, 0.85);
   padding: 1rem 0;
-  opacity: 0;
-  animation: fadeIn 1s forwards;
+  position: relative;
+  z-index: 10;
 }
 
 .container {
@@ -24,91 +35,156 @@ header {
 
 nav a {
   margin-left: 1rem;
-  color: #f0f0f0;
+  color: #fff;
   text-decoration: none;
 }
 
-nav a:hover {
-  text-decoration: underline;
+nav a.active, nav a:hover {
+  color: #f09819;
 }
 
-.hero {
-  text-align: center;
-  padding: 3rem 1rem;
-  opacity: 0;
-  animation: fadeIn 1.5s forwards;
-}
-
-.btn {
-  display: inline-block;
-  margin-top: 1rem;
-  background: gold;
-  color: black;
-  padding: 0.75rem 1.5rem;
-  text-decoration: none;
-  border-radius: 8px;
-  transition: transform 0.3s;
-}
-
-.btn:hover {
-  transform: scale(1.1);
-}
-
-.gallery {
+/* 切换按钮 */
+.toggle-buttons {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 2rem;
+  gap: 0.5rem;
 }
-
-.gallery img {
-  border-radius: 10px;
-  width: 300px;
-  height: 200px;
-  object-fit: cover;
+.toggle-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
   transition: transform 0.3s ease;
 }
+.toggle-btn:hover {
+  transform: scale(1.2);
+}
 
-.gallery img:hover {
+/* 背景视频 */
+.video-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+#bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index: 1;
+}
+
+/* 主体内容 */
+.hero {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 5rem 1rem 3rem;
+}
+
+.btn-glow {
+  margin-top: 1rem;
+  background: linear-gradient(to right, #f09819, #ff512f);
+  color: #fff;
+  padding: 0.9rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 1rem;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s;
+  box-shadow: 0 0 10px #f09819;
+}
+.btn-glow:hover {
   transform: scale(1.1);
+  box-shadow: 0 0 20px #ff512f;
 }
 
-.content {
-  padding: 2rem;
-  max-width: 800px;
-  margin: auto;
-  text-align: center;
-  opacity: 0;
-  animation: fadeIn 2s forwards;
-}
-
-footer {
-  text-align: center;
-  padding: 1rem;
-  background: #000;
+/* 数字统计样式 */
+.stats {
   margin-top: 3rem;
-  opacity: 0;
-  animation: fadeIn 2.5s forwards;
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+.stats div {
+  text-align: center;
+}
+.stats h3 {
+  font-size: 2rem;
+  margin: 0.5rem 0;
+  color: #f9d423;
 }
 
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+/* 弹窗样式 */
+.popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+.popup-content {
+  background: #fff;
+  color: #000;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+}
+.close-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
+/* Footer */
+footer {
+  background: #000;
+  color: #aaa;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* 夜间模式（示例：更暗的背景色） */
+.night-mode {
+  background: #1a1a1a;
+}
+.night-mode header,
+.night-mode footer {
+  background: #000;
+}
+.night-mode nav a {
+  color: #ccc;
+}
+.night-mode nav a.active,
+.night-mode nav a:hover {
+  color: #f09819;
+}
+
+/* 移动端优化 */
 @media screen and (max-width: 768px) {
   .container {
     flex-direction: column;
-    align-items: center;
   }
-
-  .gallery {
+  .stats {
     flex-direction: column;
-  }
-
-  .btn {
-    width: 100%;
-    padding: 1rem;
   }
 }
