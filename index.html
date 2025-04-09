@@ -12,10 +12,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-  <!-- 顶部公告，增加 role 便于无障碍 -->
+  <!-- 页面加载动画 -->
+  <div id="loader" class="loader" role="alert" aria-live="assertive">Loading...</div>
+  
+  <!-- 顶部公告 -->
   <div class="announcement" role="banner">🔥 ZY8 新版上线！支持多端畅玩 + 海量街机游戏 🔥</div>
   
-  <!-- Header 区域：增加 ARIA 与辅助信息 -->
+  <!-- Header 区域 -->
   <header role="banner">
     <div class="container">
       <h1><i class="fas fa-gamepad"></i> ZY8 街机世界</h1>
@@ -37,21 +40,21 @@
       </div>
     </div>
   </header>
-
-  <!-- 背景视频（加入 lazy 加载属性） -->
+  
+  <!-- 背景视频 -->
   <div class="video-bg">
     <video autoplay muted loop id="bg-video" preload="auto">
       <source src="https://cdn.coverr.co/videos/coverr-arcade-games-3795/1080p.mp4" type="video/mp4" />
+      您的浏览器不支持视频播放。
     </video>
     <div class="overlay"></div>
   </div>
-
-  <!-- 主体内容，增加滚动渐入动画 -->
+  
+  <!-- 主体内容 -->
   <main class="hero" role="main">
     <h2>街机盛宴，一键畅玩</h2>
     <p>永久免费，兼容手机、电视、投影仪，支持双打联机</p>
     <a href="#" class="btn-glow" id="download-btn">扫码下载模拟器</a>
-
     <!-- 数字统计区域 -->
     <div class="stats">
       <div><i class="fas fa-gamepad"></i><h3 id="games">0</h3><p>游戏数量</p></div>
@@ -59,37 +62,45 @@
       <div><i class="fas fa-clock"></i><h3 id="online">0</h3><p>活跃时长</p></div>
     </div>
   </main>
-
-  <!-- 二维码弹窗（添加 aria-modal） -->
+  
+  <!-- 二维码弹窗 -->
   <div id="qr-popup" class="popup" aria-modal="true" role="dialog">
     <div class="popup-content">
       <span id="close-popup" class="close-btn" role="button" aria-label="关闭弹窗">&times;</span>
-      <img src="https://via.placeholder.com/220x220?text=扫码下载" alt="二维码 - 扫码下载" loading="lazy" />
+      <img src="https://via.placeholder.com/220x220?text=扫码下载" alt="二维码 - 扫码下载" loading="lazy"/>
       <p>扫码下载模拟器，支持安卓/TV/投影</p>
     </div>
   </div>
-
-  <!-- 背景音乐播放器（内置 preload 和循环） -->
+  
+  <!-- 背景音乐播放器 -->
   <audio id="bg-music" loop preload="auto">
     <source src="https://www.bensound.com/bensound-music/bensound-energy.mp3" type="audio/mp3" />
-    您的浏览器不支持音频。
+    您的浏览器不支持音频播放。
   </audio>
-
+  
+  <!-- 返回顶部按钮 -->
+  <button id="back-to-top" class="back-to-top" title="返回顶部"><i class="fas fa-arrow-up"></i></button>
+  
   <!-- Footer -->
   <footer role="contentinfo">
     <p>© 2025 ZY8.TOP | ZY8 街机模拟器</p>
   </footer>
-
-  <!-- JavaScript 脚本：包含数字动画、滚动动画、夜间模式、音乐切换等 -->
+  
+  <!-- JavaScript 脚本 -->
   <script>
+    // 页面加载动画：页面加载完毕后隐藏 loader
+    window.addEventListener('load', function() {
+      document.getElementById('loader').style.display = 'none';
+    });
+    
     // 二维码弹窗逻辑
     const downloadBtn = document.getElementById('download-btn');
     const qrPopup = document.getElementById('qr-popup');
     const closePopup = document.getElementById('close-popup');
     downloadBtn.onclick = () => { qrPopup.style.display = 'flex'; }
     closePopup.onclick = () => { qrPopup.style.display = 'none'; }
-
-    // 数字动画
+    
+    // 数字统计动画
     function animateValue(id, start, end, duration) {
       const obj = document.getElementById(id);
       let startTime = null;
@@ -106,7 +117,7 @@
     animateValue("games", 0, 1200, 2000);
     animateValue("users", 0, 98654, 2500);
     animateValue("online", 0, 84513, 2000);
-
+    
     // 夜间模式切换
     const toggleNightBtn = document.getElementById('toggle-night-mode');
     toggleNightBtn.onclick = function() {
@@ -118,7 +129,7 @@
         icon.classList.replace('fa-sun', 'fa-moon');
       }
     };
-
+    
     // 背景音乐播放切换
     const toggleMusicBtn = document.getElementById('toggle-music');
     const bgMusic = document.getElementById('bg-music');
@@ -133,7 +144,20 @@
       }
       musicPlaying = !musicPlaying;
     };
-
+    
+    // 返回顶部按钮逻辑
+    const backToTop = document.getElementById('back-to-top');
+    backToTop.onclick = () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 300){
+        backToTop.style.display = 'block';
+      } else {
+        backToTop.style.display = 'none';
+      }
+    });
+    
     // 滚动动画：当主体内容进入视口时显示动画效果
     window.addEventListener('scroll', function() {
       const hero = document.querySelector('.hero');
