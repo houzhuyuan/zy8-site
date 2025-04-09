@@ -1,12 +1,13 @@
-/* 基本样式 */
+/* 基础样式与过渡效果 */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background: #0a0a0a;
   color: #fff;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
+/* 顶部公告 */
 .announcement {
   background: linear-gradient(to right, #ff512f, #f09819);
   color: #fff;
@@ -16,14 +17,13 @@ body {
   font-size: 1rem;
 }
 
-/* 头部区域 */
+/* Header 样式 */
 header {
   background: rgba(0, 0, 0, 0.85);
   padding: 1rem 0;
   position: relative;
   z-index: 10;
 }
-
 .container {
   width: 90%;
   max-width: 1200px;
@@ -32,18 +32,16 @@ header {
   justify-content: space-between;
   align-items: center;
 }
-
 nav a {
   margin-left: 1rem;
   color: #fff;
   text-decoration: none;
+  transition: color 0.3s;
 }
-
-nav a.active, nav a:hover {
+nav a.active,
+nav a:hover {
   color: #f09819;
 }
-
-/* 切换按钮 */
 .toggle-buttons {
   display: flex;
   gap: 0.5rem;
@@ -54,19 +52,17 @@ nav a.active, nav a:hover {
   color: #fff;
   font-size: 1.2rem;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s;
 }
 .toggle-btn:hover {
   transform: scale(1.2);
 }
 
-/* 背景视频 */
+/* 背景视频与遮罩 */
 .video-bg {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   z-index: -1;
   overflow: hidden;
 }
@@ -77,22 +73,26 @@ nav a.active, nav a:hover {
 }
 .overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
   z-index: 1;
 }
 
-/* 主体内容 */
+/* 主体内容与滚动动画 */
 .hero {
   position: relative;
   z-index: 2;
   text-align: center;
   padding: 5rem 1rem 3rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
 }
-
+.hero.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 .btn-glow {
   margin-top: 1rem;
   background: linear-gradient(to right, #f09819, #ff512f);
@@ -101,7 +101,7 @@ nav a.active, nav a:hover {
   font-size: 1.2rem;
   border-radius: 1rem;
   text-decoration: none;
-  transition: transform 0.3s ease, box-shadow 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 0 10px #f09819;
 }
 .btn-glow:hover {
@@ -109,7 +109,7 @@ nav a.active, nav a:hover {
   box-shadow: 0 0 20px #ff512f;
 }
 
-/* 数字统计样式 */
+/* 数字统计 */
 .stats {
   margin-top: 3rem;
   display: flex;
@@ -129,10 +129,8 @@ nav a.active, nav a:hover {
 /* 弹窗样式 */
 .popup {
   position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
   background: rgba(0,0,0,0.8);
   display: none;
   align-items: center;
@@ -161,11 +159,13 @@ footer {
   color: #aaa;
   padding: 1rem;
   text-align: center;
+  transition: background 0.3s, color 0.3s;
 }
 
-/* 夜间模式（示例：更暗的背景色） */
+/* 夜间模式 */
 .night-mode {
   background: #1a1a1a;
+  color: #eee;
 }
 .night-mode header,
 .night-mode footer {
@@ -179,7 +179,7 @@ footer {
   color: #f09819;
 }
 
-/* 移动端优化 */
+/* 移动端响应优化 */
 @media screen and (max-width: 768px) {
   .container {
     flex-direction: column;
